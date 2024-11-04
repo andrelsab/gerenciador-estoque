@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    <table border="1">
+        <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Localização</th>
+            <th>Ações</th>
+        </tr>
+        {% for produto in produtos %}
+        <tr>
+            <td>{{ produto[0] }}</td>
+            <td>{{ produto[1] }}</td>
+            <td>{{ produto[2] }}</td>
+            <td>{{ produto[3] }}</td>
+            <td>{{ produto[4] }}</td>
+            <td>{{ produto[5] }}</td>
+            <td>
+                <form action="{{ url_for('remover_produto', codigo=produto[0]) }}" method="post" style="display:inline;">
+                    <button type="submit">Remover</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Adicionar Produto</h2>
+    <form action="{{ url_for('adicionar_produto') }}" method="post">
+        <label>Código:</label><input type="text" name="codigo"><br>
+        <label>Nome:</label><input type="text" name="nome"><br>
+        <label>Categoria:</label><input type="text" name="categoria"><br>
+        <label>Quantidade:</label><input type="number" name="quantidade"><br>
+        <label>Preço:</label><input type="text" name="preco"><br>
+        <label>Localização:</label><input type="text" name="localizacao"><br>
+        <button type="submit">Adicionar Produto</button>
+    </form>
+</body>
+</html>
